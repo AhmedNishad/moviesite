@@ -65,30 +65,58 @@ nav img{
 /* Featured */
 
 .featured{
-    width: 90vw;
+    width: 80vw;
     margin: 2em auto 2em auto;
-    height: 40vh;
+    height: fit-content;
    
 }
 
 .featured h1{
     color: #05688b;
+    margin-left: 4em;
+}
 
+#next, #back{
+    text-align: right;
+    position: relative;
+    right: 4em;
+    color: white;
+}
+
+#more{
+    text-align: center;
+    color: #818181;
 }
 
 .movies{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     color: black;
+    flex-wrap: wrap;
 }
 
 .movie{
-    background: white;
-    padding: 1em;
-    margin: 1em;
+    padding: 0.5em;
+    margin: 0.5em;
+    color: white;
+    width: 130px;
+}
+
+.movie h2,h3{
+    font-size: 1.1em;
+}
+
+.movie h3{
+    color: #5c5c5c;
 }
 
 .movie img{
-    width: 20vw;
-    height: 20vh;
+    width: 110px;
+    height: 150px;
+}
+
+/* Utilities */
+
+.hidden{
+    display: none;
 }
