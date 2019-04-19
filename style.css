@@ -68,7 +68,7 @@ nav img{
     width: 80vw;
     margin: 2em auto 2em auto;
     height: fit-content;
-   
+    padding: 1em 0;
 }
 
 .featured h1{
@@ -76,11 +76,14 @@ nav img{
     margin-left: 4em;
 }
 
+
 #next, #back{
     text-align: right;
     position: relative;
     right: 4em;
     color: white;
+    margin-left: 70vw;
+    padding: 0.2em;
 }
 
 #more{

@@ -11,7 +11,7 @@ function getMovies(){
     .then(response => response.json())
     .then(data=>{
         //console.log(data)
-        createMovies(data.results);
+        initializeMovies(data.results);
     })
     .catch(error=> console.log(error));
 
@@ -20,6 +20,8 @@ function getMovies(){
 
 getMovies()
 
+
+let no_of_movies = 6;
 
 function createMovieElement(movie){
     let featuredElement = document.querySelector('.movies');
@@ -42,24 +44,37 @@ function createMovieElement(movie){
     cont.appendChild(title);
     cont.appendChild(genre);
     cont.classList.add('movie');
-    currentMovies.push(cont)
+    if(currentMovies.length < no_of_movies){
+        if(currentMovies.length<2 && currentMovies.length > 1){
+            currentMovies[0].place = 1;
+        }
+        currentMovies.push(cont)
+    }else{
+        suspendedMovies.push(cont)
+    }
+    hideSuspendedMovies();
     featuredElement.appendChild(cont);
 }
 
 
-function createMovies(movies){
-    let no_of_movies = 6;
+
+
+function createMovie(movies){
+    
+        createMovieElement(movies);
+    
+}
+
+function initializeMovies(movies){
+    
     //console.log("creating movie");
     //console.log(movies[2])
 
     console.log(suspendedMovies.length)
     
-   
-        for(let i=suspendedMovies.length; i< suspendedMovies.length + no_of_movies; i++){
-            createMovieElement(movies[i]);
-
-        }
-    
+        for(let i=0; i < 20; i++){
+            createMovie(movies[i])
+    }
 }
 
 let currentMovies = []
@@ -67,26 +82,49 @@ let currentMovies = []
 let next = document.querySelector('#next');
     next.addEventListener('click', nextMovies)
 
+    
+
 let back = document.querySelector('#back');
     back.addEventListener('click', backMovies)
+    
 
 let suspendedMovies = [];
 
-function nextMovies(){
-    
+
+
+function nextMovies(){   
     //let currentMoviesNotInSuspended = currentMovies.slice(currentMovies.length-5, currentMovies.length)
-    
+    console.log(currentMovies[0].place)
     back.classList.remove('hidden')
 
-    currentMovies.forEach(event =>{
-        event.classList.add('hidden');
-    })
-    getMovies();
-    let lastMovie = currentMovies.pop();
-    suspendedMovies.push(lastMovie);
-    console.log(suspendedMovies)
+    let firstMovie = currentMovies.shift()
+    firstMovie.classList.add('hidden');
+    suspendedMovies.unshift(firstMovie);
+
+    let lastMovie = suspendedMovies.pop();
+    if(lastMovie.place){
+        console.log('last movie reached')
+        next.addClassList('hidden')
+    }
+    currentMovies.push(lastMovie);
+    lastMovie.classList.remove('hidden')
+}
+
+function hideSuspendedMovies(){
+    suspendedMovies.forEach(element => {
+        element.classList.add('hidden')
+    });
 }
 
 function backMovies(){
 
+    next.classList.remove('hidden')
+
+    let firstMovie = currentMovies.pop()
+    firstMovie.classList.add('hidden');
+    suspendedMovies.push(firstMovie);
+
+    let lastMovie = suspendedMovies.shift();
+    currentMovies.unshift(lastMovie);
+    lastMovie.classList.remove('hidden')
 }
