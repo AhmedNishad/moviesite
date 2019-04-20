@@ -128,3 +128,30 @@ function backMovies(){
     currentMovies.unshift(lastMovie);
     lastMovie.classList.remove('hidden')
 }
+
+let more = document.querySelector('#more')
+
+more.addEventListener('click', showAll);
+
+let less = document.querySelector('#less');
+
+less.addEventListener('click', showLess);
+
+function showAll(){
+    next.classList.add('hidden')
+    back.classList.add('hidden')
+    
+    suspendedMovies.forEach(element=> element.classList.remove('hidden'))
+    more.classList.add('hidden');
+    less.classList.remove('hidden');
+}
+
+function showLess(){
+    next.classList.remove('hidden')
+    back.classList.remove('hidden')
+
+    suspendedMovies.forEach(element=> element.classList.add('hidden'));
+    more.classList.remove('hidden');
+    less.classList.add('hidden')
+}
+

@@ -86,7 +86,7 @@ nav img{
     padding: 0.2em;
 }
 
-#more{
+#more, #less{
     text-align: center;
     color: #818181;
 }
@@ -103,6 +103,7 @@ nav img{
     margin: 0.5em;
     color: white;
     width: 130px;
+    
 }
 
 .movie h2,h3{
@@ -122,4 +123,5 @@ nav img{
 
 .hidden{
     display: none;
+    
 }
