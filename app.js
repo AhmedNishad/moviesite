@@ -1,16 +1,18 @@
-let api_key = 'e11af9ef78918c9a8ba4700aaa29147f';
+let api_key = 'e11af9ef78918c9a8ba4700aaa29147f'; //e11af9ef78918c9a8ba4700aaa29147f
 
 let urlExample = 'https://api.themoviedb.org/3/movie/550?api_key=' + api_key;
 
 let url = 'https://api.themoviedb.org/3/discover/movie?api_key=e11af9ef78918c9a8ba4700aaa29147f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&without_genres=horror'
 
+let urlPop = 
+"https://api.themoviedb.org/4/discover/movie?api_key=e11af9ef78918c9a8ba4700aaa29147f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1"
+
 
 
 function getMovies(){
-     fetch(url)
+     fetch(urlPop)
     .then(response => response.json())
     .then(data=>{
-        //console.log(data)
         initializeMovies(data.results);
     })
     .catch(error=> console.log(error));
@@ -45,13 +47,20 @@ function createMovieElement(movie){
     cont.appendChild(genre);
     cont.classList.add('movie');
     if(currentMovies.length < no_of_movies){
-        if(currentMovies.length<2 && currentMovies.length > 1){
-            currentMovies[0].place = 1;
+        if(currentMovies.length==4){
+            cont.setAttribute('place','first');
+            console.log(cont)
         }
+        
         currentMovies.push(cont)
     }else{
+        if(suspendedMovies.length == 2){
+            suspendedMovies[1].setAttribute('place', 'last')
+        }
         suspendedMovies.push(cont)
+        
     }
+    
     hideSuspendedMovies();
     featuredElement.appendChild(cont);
 }
@@ -70,7 +79,6 @@ function initializeMovies(movies){
     //console.log("creating movie");
     //console.log(movies[2])
 
-    console.log(suspendedMovies.length)
     
         for(let i=0; i < 20; i++){
             createMovie(movies[i])
@@ -94,17 +102,17 @@ let suspendedMovies = [];
 
 function nextMovies(){   
     //let currentMoviesNotInSuspended = currentMovies.slice(currentMovies.length-5, currentMovies.length)
-    console.log(currentMovies[0].place)
+
     back.classList.remove('hidden')
 
     let firstMovie = currentMovies.shift()
     firstMovie.classList.add('hidden');
+    
     suspendedMovies.unshift(firstMovie);
 
     let lastMovie = suspendedMovies.pop();
-    if(lastMovie.place){
-        console.log('last movie reached')
-        next.addClassList('hidden')
+    if(lastMovie.getAttribute('place') == 'last'){
+        next.classList.add('hidden')
     }
     currentMovies.push(lastMovie);
     lastMovie.classList.remove('hidden')
@@ -122,6 +130,10 @@ function backMovies(){
 
     let firstMovie = currentMovies.pop()
     firstMovie.classList.add('hidden');
+    if(firstMovie.getAttribute('place') == 'first'){
+        console.log('first movie reached')
+        back.classList.add('hidden')
+    }
     suspendedMovies.push(firstMovie);
 
     let lastMovie = suspendedMovies.shift();

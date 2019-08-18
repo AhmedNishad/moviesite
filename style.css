@@ -86,6 +86,15 @@ nav img{
     padding: 0.2em;
 }
 
+#next:hover{
+    background: #999;
+    transition: 0.4s;
+}
+#back:hover{
+    background: #999;
+    transition: 0.4s;
+}
+
 #more, #less{
     text-align: center;
     color: #818181;
@@ -103,6 +112,7 @@ nav img{
     margin: 0.5em;
     color: white;
     width: 130px;
+    
     
 }
 
@@ -123,5 +133,5 @@ nav img{
 
 .hidden{
     display: none;
-    
+    transition-duration: 0.4s;
 }
